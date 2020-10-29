@@ -14,7 +14,7 @@ function CasesTable({countries}) {
                 {sortedData?.map(country =>(
                     <tr key ={country.country}>
                         <td>{country.country}</td>
-                        <strong><td>{country.cases}</td></strong>
+                        <td><strong>{country.cases}</strong></td>
                     </tr>
                 ))}
                 

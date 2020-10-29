@@ -12,12 +12,17 @@ import axios from '../../axios';
 
 function Home() {
     const [countries, setCountries] = useState([]);
+    const [worldwide, setWorldwide] = useState({});
 
     useEffect(() =>{
         axios.get('/countries')
         .then(res =>{
-            console.log(res.data[0])
             setCountries(res.data)
+        })
+
+        axios.get('/all')
+        .then(res =>{
+            setWorldwide(res.data);
         })
     }, [])
 
@@ -26,9 +31,9 @@ function Home() {
             <div className='home__left'>
                 <Header countries={countries}/>
                 <div className='home__cards'>
-                    <CasesCards caseType='Confirmed cases' today={32443} total={87345} />
-                    <CasesCards caseType='Recovered cases' today={45654} total={567345} />
-                    <CasesCards caseType='Deaths' today={435} total={4345} />
+                    <CasesCards caseType='Confirmed cases' today={worldwide?.todayCases} total={worldwide?.cases} />
+                    <CasesCards caseType='Recovered cases' today={worldwide?.todayRecovered} total={worldwide?.recovered} />
+                    <CasesCards caseType='Deaths' today={worldwide?.todayDeaths} total={worldwide?.deaths} />
                 </div>
                 <Map />
             </div>
