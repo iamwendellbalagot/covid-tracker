@@ -1,0 +1,12 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  color: #14274e;
+}
+
+.header__select {
+  width: 100px;
+  height: 35px;
+}

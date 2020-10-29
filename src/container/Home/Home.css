@@ -1,0 +1,22 @@
+.home {
+  display: flex;
+  height: 100vh;
+  background-color: #f1f6f9;
+}
+
+.home__left {
+  flex: 0.7;
+  padding: 0 30px;
+}
+
+.home__right {
+  flex: 0.3;
+  background-color: #ffffff;
+  margin: 20px 0;
+}
+
+.home__cards {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
