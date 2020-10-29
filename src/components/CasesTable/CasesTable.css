@@ -1,0 +1,23 @@
+.table {
+  flex: 0.6;
+  margin-bottom: 20px;
+}
+
+.table__cases {
+  margin-top: 10px;
+  overflow-y: scroll;
+  height: 350px;
+  width: 100%;
+}
+
+.table__cases > tr {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 2px 15px;
+  flex: 1;
+}
+
+.table__cases > tr:nth-last-child(odd) {
+  background-color: #ccc;
+}

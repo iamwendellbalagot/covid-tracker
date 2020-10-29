@@ -2,6 +2,7 @@
   display: flex;
   height: 100vh;
   background-color: #f1f6f9;
+  overflow: hidden;
 }
 
 .home__left {
@@ -10,9 +11,14 @@
 }
 
 .home__right {
+  display: flex;
+  flex-direction: column;
   flex: 0.3;
   background-color: #ffffff;
   margin: 20px 0;
+  margin-right: 10px;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .home__cards {
