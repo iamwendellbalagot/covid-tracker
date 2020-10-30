@@ -6,14 +6,16 @@ import CasesCards from '../../components/CasesCards/CasesCards';
 import Map from '../../components/Map/Map';
 import CasesTable from '../../components/CasesTable/CasesTable';
 import LinePlot from '../../components/LinePlot/LinePlot';
-
 import axios from '../../axios';
+import "leaflet/dist/leaflet.css";
 
 
 function Home() {
     const [countries, setCountries] = useState([]);
     const [country, setCountry] = useState({});
     const [data, setData] = useState({});
+    const [mapCenter, setMapCenter] = useState({lat: 12.8797, lng: 121.7740 });
+    const [mapZoom, setMapZoom] = useState(4);
 
     useEffect(() =>{
         axios.get('/countries')
@@ -47,7 +49,12 @@ function Home() {
         if (country !== 'worldwide'){
             axios.get(`/countries/${country}`)
             .then(res =>{
+                console.log('lat', res)
                 setCountry(res.data);
+                setMapCenter({
+                    lat: res.data.countryInfo.lat,
+                    lng: res.data.countryInfo.long
+                })
             })
             .catch(err => console.log(err))
 
@@ -97,11 +104,11 @@ function Home() {
                     <CasesCards caseType='Recovered cases' today={country?.todayRecovered} total={country?.recovered} />
                     <CasesCards caseType='Deaths' today={country?.todayDeaths} total={country?.deaths} />
                 </div>
-                <Map />
+                <Map center={mapCenter} zoom={mapZoom} />
             </div>
             <div className='home__right'>
                 <CasesTable countries={countries}/>
-                <LinePlot countryData={data} />
+                <LinePlot countryData={data} countryName={country.country}/>
             </div>
         </div>
     )

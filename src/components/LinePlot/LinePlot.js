@@ -4,7 +4,7 @@ import './LinePlot.css';
 import { Line } from 'react-chartjs-2'
 
 
-function LinePlot({countryData}) {
+function LinePlot({countryData, countryName}) {
     const data = {
         labels: countryData.dates,
         datasets: [
@@ -36,7 +36,7 @@ function LinePlot({countryData}) {
 
     return (
         <div className='lineplot'>
-            <h3>Worldwide new cases</h3>
+            <h3>{countryName? countryName : 'Worldwide'} new cases</h3>
             <Line data={data} options={options} legend={false} height={180}/>
         </div>
     )
