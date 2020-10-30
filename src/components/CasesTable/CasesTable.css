@@ -1,12 +1,16 @@
 .table {
+  display: flex;
+  flex-direction: column;
   flex: 0.6;
   margin-bottom: 20px;
 }
 
 .table__cases {
+  display: flex;
+  flex-direction: column;
   margin-top: 10px;
   overflow-y: scroll;
-  height: 350px;
+  max-height: 350px;
   width: 100%;
 }
 

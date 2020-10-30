@@ -4,12 +4,13 @@ import './Header.css';
 
 import {FormControl, MenuItem, Select} from '@material-ui/core';
 
-function Header({countries}) {
+function Header({countries, getCountry}) {
     
     const [country, setCountry] = useState('worldwide');
 
     const handleCountryChange = (event) =>{
         setCountry(event.target.value)
+        getCountry(event.target.value);
     }
 
     return (
