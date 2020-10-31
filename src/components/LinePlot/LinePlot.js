@@ -4,14 +4,19 @@ import './LinePlot.css';
 import { Line } from 'react-chartjs-2'
 
 
-function LinePlot({countryData, countryName}) {
+function LinePlot({countryData, countryName, caseType}) {
+    let fillColor = 'rgba(255, 99, 132, 0.2)';
+    if(caseType === 'recovered'){
+      fillColor = 'rgba(53, 155, 53, 0.2)'
+    }
+
     const data = {
         labels: countryData.dates,
         datasets: [
           {
             data: countryData.values,
             fill: true,
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            backgroundColor: fillColor,
             borderColor: 'rgba(70, 67, 67, 0.2)',
             showLine: true,
             borderWidth:1,

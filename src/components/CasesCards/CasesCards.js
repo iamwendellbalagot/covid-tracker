@@ -1,12 +1,14 @@
 import React from 'react';
 import './CasesCards.css';
 
-function CasesCards({caseType, today, total}) {
+import numeral from 'numeral';
+
+function CasesCards({caseType, caseName, today, total, cardCliked, active}) {
     return (
-        <div className='card'>
-            <p>{caseType}</p>
-            <h3>{today}</h3>
-            <span>{total}</span>
+        <div className={`card ${active && 'card__clicked'}`} onClick={() => cardCliked(caseType)} >
+            <p>{caseName}</p>
+            <h3>{numeral(today).format('0,0')}</h3>
+            <span>Total: {numeral(total).format('0,0')}</span>
         </div>
     )
 }

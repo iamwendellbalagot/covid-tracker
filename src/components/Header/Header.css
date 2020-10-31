@@ -10,3 +10,12 @@
   width: 120px;
   height: 35px;
 }
+
+@media (max-width: 500px) {
+  .header > h1 {
+    font-size: 21px;
+  }
+  .header__select {
+    width: 80px;
+  }
+}

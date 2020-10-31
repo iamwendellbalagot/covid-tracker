@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './CasesTable.css';
 
+import numeral from 'numeral';
+
 function CasesTable({countries}) {
     const [sortedData, setSortedData] = useState(countries);
     useEffect(() =>{
@@ -14,7 +16,7 @@ function CasesTable({countries}) {
                 {sortedData?.map(country =>(
                     <tr key ={country.country}>
                         <td>{country.country}</td>
-                        <td><strong>{country.cases}</strong></td>
+                        <td><strong>{numeral(country.cases).format('0,0')}</strong></td>
                     </tr>
                 ))}
                 

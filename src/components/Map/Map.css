@@ -1,12 +1,45 @@
 .map {
   background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 450px;
+  height: 65%;
   margin-top: 20px;
   border-radius: 5px;
 }
 
 .map .leaflet-container {
   height: 100%;
-  border-radius: 12px;
+  border-radius: 5px;
+}
+
+.popup > h3 {
+  margin-bottom: 5px;
+}
+
+.popup__cases {
+  display: flex;
+  color: rgb(69, 67, 67);
+}
+
+.popup__cases > span {
+  font-weight: 700;
+  margin-right: 3px;
+}
+
+.popup__cases > p {
+  margin: 0 !important;
+  padding: 0;
+}
+
+@media (max-width: 815px) {
+  .map {
+    height: 500px;
+  }
+}
+
+@media (max-width: 500px) {
+  .map {
+    height: 300px;
+  }
 }

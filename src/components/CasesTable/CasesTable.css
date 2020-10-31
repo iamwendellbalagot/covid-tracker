@@ -3,6 +3,7 @@
   flex-direction: column;
   flex: 0.6;
   margin-bottom: 20px;
+  justify-content: space-evenly;
 }
 
 .table__cases {
@@ -44,4 +45,16 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+@media (min-height: 870px) {
+  .table__cases {
+    max-height: 400px;
+  }
+}
+
+@media (min-height: 1000px) {
+  .table__cases {
+    max-height: 450px;
+  }
 }

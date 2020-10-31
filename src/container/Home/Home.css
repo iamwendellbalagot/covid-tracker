@@ -5,6 +5,20 @@
   overflow: hidden;
 }
 
+.home__footer {
+  width: 100%;
+  position: absolute;
+  text-align: center;
+  bottom: 5px;
+}
+
+.home__footer > a {
+  color: gray;
+  font-size: 10px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
 .home__left {
   flex: 0.7;
   padding: 0 30px;
@@ -25,4 +39,19 @@
   display: flex;
   justify-content: space-evenly;
   margin-top: 20px;
+}
+
+@media (max-width: 815px) {
+  .home {
+    flex-direction: column;
+    overflow: scroll;
+  }
+
+  .home__footer {
+    position: relative;
+  }
+
+  .home__right {
+    margin: 20px 30px;
+  }
 }

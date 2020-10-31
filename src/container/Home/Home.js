@@ -16,6 +16,7 @@ function Home() {
     const [data, setData] = useState({});
     const [mapCenter, setMapCenter] = useState({lat: 12.8797, lng: 121.7740 });
     const [mapZoom, setMapZoom] = useState(4);
+    const [caseType, setCaseType] = useState('cases');
 
     useEffect(() =>{
         axios.get('/countries')
@@ -31,7 +32,7 @@ function Home() {
         axios.get('/historical/all?lastdays=all')
         .then(res => {
             let newValues = []
-            let values = Object.values(res.data.cases)
+            let values = Object.values(res.data[caseType])
             let i = 0;
             values.forEach(val => {
                 newValues.push(val - i);
@@ -39,17 +40,52 @@ function Home() {
             });
             
             setData({
-                dates:Object.keys(res.data.cases),
+                dates:Object.keys(res.data[caseType]),
                 values: Object.values(newValues)
             })
         })
     }, [])
 
+    useEffect(() =>{
+        if (country.country){
+            axios.get(`/historical/${country.country}?lastdays=all`)
+            .then(res =>{
+                let newValues = []
+                let values = Object.values(res.data.timeline[caseType])
+                let i = 0;
+                values.forEach(val => {
+                    newValues.push(val - i);
+                    i = val;
+                });
+                setData({
+                    dates:Object.keys(res.data.timeline[caseType]),
+                    values: Object.values(newValues)
+                })
+            })
+        }else {
+            axios.get('/historical/all?lastdays=all')
+            .then(res => {
+                let newValues = []
+                let values = Object.values(res.data[caseType])
+                let i = 0;
+                values.forEach(val => {
+                    newValues.push(val - i);
+                    i = val;
+                });
+                
+                setData({
+                    dates:Object.keys(res.data[caseType]),
+                    values: Object.values(newValues)
+                })
+            })
+        }
+        
+    }, [caseType])
+
     const handleCardsInfo = (country) =>{
         if (country !== 'worldwide'){
             axios.get(`/countries/${country}`)
             .then(res =>{
-                console.log('lat', res)
                 setCountry(res.data);
                 setMapCenter({
                     lat: res.data.countryInfo.lat,
@@ -61,14 +97,14 @@ function Home() {
             axios.get(`/historical/${country}?lastdays=all`)
             .then(res =>{
                 let newValues = []
-                let values = Object.values(res.data.timeline.cases)
+                let values = Object.values(res.data.timeline[caseType])
                 let i = 0;
                 values.forEach(val => {
                     newValues.push(val - i);
                     i = val;
                 });
                 setData({
-                    dates:Object.keys(res.data.timeline.cases),
+                    dates:Object.keys(res.data.timeline[caseType]),
                     values: Object.values(newValues)
                 })
             })
@@ -80,7 +116,7 @@ function Home() {
             axios.get('/historical/all?lastdays=all')
             .then(res => {
                 let newValues = []
-                let values = Object.values(res.data.cases)
+                let values = Object.values(res.data[caseType])
                 let i = 0;
                 values.forEach(val => {
                     newValues.push(val - i);
@@ -88,28 +124,50 @@ function Home() {
                 });
                 
                 setData({
-                    dates:Object.keys(res.data.cases),
+                    dates:Object.keys(res.data[caseType]),
                     values: Object.values(newValues)
                 })
             })
         }
     }
 
+    const handleCardClicked = (c) =>{
+        setCaseType(c);
+    };
+
     return (
         <div className='home'>
             <div className='home__left'>
                 <Header countries={countries} getCountry={handleCardsInfo}/>
                 <div className='home__cards'>
-                    <CasesCards caseType='Confirmed cases' today={country?.todayCases} total={country?.cases} />
-                    <CasesCards caseType='Recovered cases' today={country?.todayRecovered} total={country?.recovered} />
-                    <CasesCards caseType='Deaths' today={country?.todayDeaths} total={country?.deaths} />
+                    <CasesCards 
+                        cardCliked={handleCardClicked} 
+                        caseType='cases' caseName='Confirmed cases'
+                        active={caseType === 'cases'} 
+                        today={country?.todayCases} 
+                        total={country?.cases} />
+                    <CasesCards 
+                        cardCliked={handleCardClicked} 
+                        caseType='recovered' caseName='Recovered cases'
+                        active={caseType === 'recovered'}  
+                        today={country?.todayRecovered} 
+                        total={country?.recovered} />
+                    <CasesCards 
+                        cardCliked={handleCardClicked} 
+                        caseType='deaths' caseName='Deaths'
+                        active={caseType === 'deaths'}  
+                        today={country?.todayDeaths} 
+                        total={country?.deaths} />
                 </div>
-                <Map center={mapCenter} zoom={mapZoom} />
+                <Map center={mapCenter} zoom={mapZoom} countries={countries} caseType={caseType} />
             </div>
             <div className='home__right'>
                 <CasesTable countries={countries}/>
-                <LinePlot countryData={data} countryName={country.country}/>
+                <LinePlot countryData={data} countryName={country.country} caseType={caseType}/>
             </div>
+            <footer className='home__footer'>
+                <a target='_blank' href='https://github.com/iamwendellbalagot' >Developer</a>
+            </footer>
         </div>
     )
 }
