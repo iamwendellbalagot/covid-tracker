@@ -9,7 +9,7 @@ https://disease.sh/
 ### App Demo
 <img src="https://drive.google.com/uc?export=view&id=1BAwNEivtTii88Mp6sVzZe44X7b0uqL4w" width="720" height="420" /><br/>
 ### Mobile View
-<img src="https://drive.google.com/uc?export=view&id=1IbINY9e4PPtxlh1ln_rHGknpuOzEGnp3" width="1080" height="550" /><br/>
+<img src="https://drive.google.com/uc?export=view&id=1IbINY9e4PPtxlh1ln_rHGknpuOzEGnp3"  height="550" /><br/>
 
 # License
 MIT License
